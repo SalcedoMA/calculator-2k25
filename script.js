@@ -47,6 +47,7 @@ let lastOperator;
 let count;
 let operatorClicked;
 let btnClicked;
+let finishedCalc;
 
 //ACTION FUNCTIONS
 function reset() { //RESET ALL VARIABLES TO THE DEFAULT/START VALUES;
@@ -65,6 +66,10 @@ function saveInputs() { //SAVE THE NUMBER TO VE OPERATED
 }
 
 function onScreen() { //ADD CHARACTERS ON SCREEN OR CLEAR IT
+    if (finishedCalc) {
+        reset()
+        finishedCalc = false;
+    }
     if (operatorOnFocus) {
         display.innerText = "";
         operatorOnFocus = false;
@@ -75,7 +80,13 @@ function onScreen() { //ADD CHARACTERS ON SCREEN OR CLEAR IT
  
 //CLEAR AND EQUAL BUTTONS EVENTS
 equal.addEventListener('click', event => {
-
+    if (!operatorOnFocus) {
+        saveInputs();
+        lastValue = operate(previousValue, lastValue, lastOperator);
+        display.innerText = lastValue;
+    }
+    operatorOnFocus = true;
+    finishedCalc = true;
 })
 
 clear.addEventListener('click', event => {
@@ -92,7 +103,6 @@ for (let number of numButtons) {
         }
         onScreen();
         lastOperator = operatorClicked;
-        // console.log(previousValue, lastValue, lastOperator);
     })
     
 }
@@ -107,10 +117,8 @@ for (let operator of operators) {
             lastValue = operate(previousValue, lastValue, lastOperator);
             display.innerText = lastValue;
         }
-
+        finishedCalc = false;
         operatorOnFocus = true;
-        
-        // console.log(previousValue, lastValue);
-        // console.log(lastOperator)
+
     })
 }  
