@@ -44,7 +44,6 @@ let previousValue;
 let lastValue;
 let operatorOnFocus;
 let lastOperator;
-let count;
 let operatorClicked;
 let btnClicked;
 let finishedCalc;
@@ -56,8 +55,7 @@ function reset() { //RESET ALL VARIABLES TO THE DEFAULT/START VALUES;
     operatorOnFocus = true;
     operatorClicked = '+';
     lastOperator = '+';
-    count = 0;
-    display.innerText = "";
+    display.innerText = "0";
 }
 
 function saveInputs() { //SAVE THE NUMBER TO VE OPERATED
