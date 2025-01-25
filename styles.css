@@ -36,7 +36,6 @@ body {
     border-radius: 1rem;
     padding: 1rem;
     background-color: #2b2b2b;
-    gap: 0.8rem;
 }
 
 .input {
@@ -44,11 +43,19 @@ body {
     height: 9vh;
     background-color: greenyellow;
     border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1rem 1.5rem;
+    font-size: 4rem;
+    color: rgb(0, 68, 0);
+    font-weight: 900;
 }
 
 .calc{
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-end;
     height: 75vh;
     width: 75vh;
     background-color: #2b2b2b;
@@ -63,9 +70,20 @@ body {
     color: #2b2b2b;
 }
 
+.calc button.bot-row {
+    width: calc(100%/6);
+}
+
 .calc button:active {
     color: #2b2b2b;
     background-color: grey;
+}
+
+.operator:active {
+    background-color: rgb(107, 76, 18);
+}
+.operator:focus {
+    background-color: rgb(204, 145, 36);
 }
 
 /* footer */
