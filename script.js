@@ -1,3 +1,4 @@
+//BASIC MATH FUNCTIONS
 function add(value1, value2) {
     return value1 + value2;
 }
@@ -31,36 +32,48 @@ function operate(value1, value2, operator) {
     }
 }
 
-
+//GET ELEMENTS FROM DOM
 const display = document.querySelector('.input');
 const equal = document.querySelector('#equal');
 const clear = document.querySelector('#clear')
 const numButtons = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
 
+//INITIALIZE NECESSARY VARIABLES
 let previousValue;
-    let lastValue;
-    let operatorOnFocus;
-    let lastOperator;
-    let count;
-    let opClicked;
+let lastValue;
+let operatorOnFocus;
+let lastOperator;
+let count;
+let operatorClicked;
+let btnClicked;
 
-function reset() {
+//ACTION FUNCTIONS
+function reset() { //RESET ALL VARIABLES TO THE DEFAULT/START VALUES;
     previousValue = 0;
     lastValue = 0;
-    operatorOnFocus = false;
-    lastOperator;
+    operatorOnFocus = true;
+    operatorClicked = '+';
+    lastOperator = '+';
     count = 0;
+    display.innerText = "";
 }
 
-reset();
-
-function saveInputs() {
+function saveInputs() { //SAVE THE NUMBER TO VE OPERATED
     previousValue = lastValue;
     lastValue = parseFloat(display.innerText);
 }
- 
 
+function onScreen() { //ADD CHARACTERS ON SCREEN OR CLEAR IT
+    if (operatorOnFocus) {
+        display.innerText = "";
+        operatorOnFocus = false;
+        // count++
+    }
+    display.innerText += btnClicked; //CHECK CASE > WHEN ZERO IS FIRST VALUE
+}
+ 
+//CLEAR AND EQUAL BUTTONS EVENTS
 equal.addEventListener('click', event => {
 
 })
@@ -69,26 +82,17 @@ clear.addEventListener('click', event => {
     reset();
 })
 
-// function getValue(event) {
-//     if (event.target.matches('button')) {
-//         return event.target.value;
-//     }
-// }
+reset();
 
-//GET BUTTON VALUES
 //NUMBER EVENTS
 for (let number of numButtons) {
-    let btnClicked;
     number.addEventListener('click', event => {
         if (event.target.matches('button')) {
             btnClicked = event.target.value;
         }
-        if (operatorOnFocus) {
-            display.innerText = "";
-            operatorOnFocus = false;
-        }
-        display.innerText += btnClicked;
-
+        onScreen();
+        lastOperator = operatorClicked;
+        // console.log(previousValue, lastValue, lastOperator);
     })
     
 }
@@ -96,14 +100,17 @@ for (let number of numButtons) {
 for (let operator of operators) {
     operator.addEventListener('click', event => {
         if (event.target.matches('button')) {
-            let operatorClicked = event.target.value;
+            operatorClicked = event.target.value;
         }
-
         if (!operatorOnFocus) {
             saveInputs();
+            lastValue = operate(previousValue, lastValue, lastOperator);
+            display.innerText = lastValue;
         }
-        
+
         operatorOnFocus = true;
-        console.log(previousValue, lastValue);
+        
+        // console.log(previousValue, lastValue);
+        // console.log(lastOperator)
     })
 }  
